@@ -2,13 +2,15 @@ import RPi.GPIO as GPIO
 from light import getLight
 from time import sleep
 
-LASER = [11,12,13,15,16,18]
-LDR   = [33,35,36,37,38,40]
+
+LASER = [36,35]
+LDR   = [11,12]
+Button = 22
 
 GPIO.setup(LASER,GPIO.OUT)
 
 try:
-    GPIO.output(LASER,True)
+    GPIO.output(LASER,GPIO.HIGH)
     HP = 5
     while HP > 0:
         for i in LDR:

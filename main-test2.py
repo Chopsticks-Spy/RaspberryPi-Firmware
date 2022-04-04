@@ -14,14 +14,11 @@ try:
     HP = 5
     while HP > 0:
         for i in LDR:
-            if getLight(i) > 1000:
-                HP -= 1
-                print(f"{HP}/5")
-                sleep(0.1)
-                break
-        else:
-            if not GPIO.input(Button):
-                print("YOU WIN")
+            print(getLight(i),end=" ")
+        print()
+        if GPIO.input(Button):
+            print("YOU WIN")
+        sleep(1)
     print("GAME OVER!")
 finally:
     GPIO.cleanup()

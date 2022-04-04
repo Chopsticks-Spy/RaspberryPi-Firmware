@@ -12,7 +12,7 @@ def getLight(ldr):
         GPIO.setup(ldr,GPIO.IN)
         while GPIO.input(ldr) == GPIO.LOW:
             pass
-        return int((time()-time_start)*100000)
+        return int((time()-time_start)*10000000)
     except:
         GPIO.cleanup()
         return -1
