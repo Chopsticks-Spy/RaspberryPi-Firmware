@@ -2,25 +2,27 @@ import RPi.GPIO as GPIO
 from light import getLight
 from time import sleep,time
 from math import sqrt
+from api import *
 
-def initGame(LDR):
-    #LDR   = [11,12,13,15,16,18]
+def initGame(enableLDR,HP=5):
+    TotalLDR = [16,18,15,13,11,12]
+    #TotalLDR   = [11,12,13,15,16,18]
+    LDR = [TotalLDR[i] for i in range(6) if enableLDR[i]]
     Button = 22
     print("Waited for 3 seconds...")
     average = [0 for i in LDR]
 
     for i in range(30):
         average = [average[i]+getLight(LDR[i]) for i in range(len(average))]
-        print(i,average)
+        #print(i,average)
         sleep(0.1)
-    average = [i/30 for i in average]
-    boundary = [i*1.5 for i in average]
+    average = [int(i/30) for i in average]
+    boundary = [int(i*2) for i in average]
     print("START!",average,boundary)
     try:
         GPIO.setmode(GPIO.BOARD)
         start_time = time()
         GPIO.setup(Button,GPIO.IN,pull_up_down=GPIO.PUD_UP)
-        HP = 5
         lastest_hit = 0
         prev = [0 for i in LDR]
         while (GPIO.input(Button) == 1 or time()-lastest_hit < 1)  and HP > 0:
@@ -34,7 +36,9 @@ def initGame(LDR):
                     break
             #print(result,boundary)
             prev = [i for i in crnt]
+            #print(f"HP: {HP}/5 {result} | {boundary}")
             sleep(0.1)
+
         if HP <= 0:
             print("GAME OVER")
         else:
@@ -46,4 +50,5 @@ def initGame(LDR):
     #except:
     #    print("ERROR")
     finally:
+        setLaser([0,0,0,0,0,0])
         GPIO.cleanup()
