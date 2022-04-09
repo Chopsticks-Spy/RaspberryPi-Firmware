@@ -4,21 +4,21 @@
 void init_peri()
 {
     // PC0..PC2 -> output
-    DDRC |= (1<<PC2)|(1<<PC1)|(1<<PC0);
+    DDRC |= (1<<PC5)|(1<<PC4)|(1<<PC3)|(1<<PC2)|(1<<PC1)|(1<<PC0);
 
     // PC3,PC4 -> input
-    DDRC &= ~((1<<PC3)|(1<<PC4));
+    //DDRC &= ~((1<<PC3)|(1<<PC4));
 
     // enable pull-up resistor on PC3
-    PORTC |= (1<<PC3);
+    //PORTC |= (1<<PC3);
 
     // turn off all LEDs
-    set_led_value(0);
+    //set_led_value(0);
 }
 
 void set_led(uint8_t pin, uint8_t state)
 {
-    if (pin > 2) return;
+    if (pin > 5) return;
     if (state)
         PORTC |= (1<<pin);
     else
