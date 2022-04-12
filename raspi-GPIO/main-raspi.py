@@ -4,9 +4,6 @@ import random
 from game import initGame
 from api import *
 
-#sampleLDR = [1,2,3,4,5,0]
-#sampleLDR = [int(i) for i in input().split()] #random.sample(range(6),3)
-
 while True:
     while not getData()["isActive"]:
         pass
@@ -21,12 +18,8 @@ while True:
             generateLDR.append(0)
 
     postData(True,0,generateLDR,5,0)
-#print(sampleLDR,generateLDR)
 
     initGame(generateLDR)
     
     setData("isActive",False)
-    setLaser([0,0,0,0,0,0])
-    #postData(False,0,[0,0,0,0,0,0],0,0)
-#setData('isWin',-1)
-
+    setData("activeLaser",[0,0,0,0,0,0])

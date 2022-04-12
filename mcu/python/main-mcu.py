@@ -3,7 +3,6 @@ import requests
 from practicum import *
 from time import sleep
 
-
 devices = find_mcu_boards()
 mcu = McuBoard(devices[0])
 

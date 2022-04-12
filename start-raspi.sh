@@ -1,0 +1,1 @@
+. ~/virtualenv/practicum/bin/activate; python3.7 ./raspi-GPIO/main-raspi.py
