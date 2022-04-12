@@ -4,20 +4,29 @@ import random
 from game import initGame
 from api import *
 
-#sampleLDR = [int(i) for i in input().split()]#random.sample(range(6),3)
-sampleLDR = random.sample(range(4),2)
-generateLDR = []
+#sampleLDR = [1,2,3,4,5,0]
+#sampleLDR = [int(i) for i in input().split()] #random.sample(range(6),3)
 
-for i in range(6):
-    if i in sampleLDR:
-        generateLDR.append(1)
-    else:
-        generateLDR.append(0)
+while True:
+    while not getData()["isActive"]:
+        pass
+    print("BEGIN")
+    sampleLDR = random.sample(range(4),2)
+    generateLDR = []
 
-postData(True,0,generateLDR)
-print(sampleLDR,generateLDR)
+    for i in range(6):
+        if i in sampleLDR:
+            generateLDR.append(1)
+        else:
+            generateLDR.append(0)
 
-initGame(generateLDR)
+    postData(True,0,generateLDR,5,0)
+#print(sampleLDR,generateLDR)
 
-postData(False,0,[0,0,0,0,0,0])
+    initGame(generateLDR)
+    
+    setData("isActive",False)
+    setLaser([0,0,0,0,0,0])
+    #postData(False,0,[0,0,0,0,0,0],0,0)
+#setData('isWin',-1)
 

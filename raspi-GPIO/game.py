@@ -5,6 +5,7 @@ from math import sqrt
 from api import *
 
 def initGame(enableLDR,HP=5):
+    setData('isActive',True)
     TotalLDR = [16,18,15,13,11,12]
     #TotalLDR   = [11,12,13,15,16,18]
     LDR = [TotalLDR[i] for i in range(6) if enableLDR[i]]
@@ -30,6 +31,7 @@ def initGame(enableLDR,HP=5):
             crnt = [int(result[i] > boundary[i]) for i in range(len(result))]
             if sum([crnt[i]*prev[i] for i in range(len(LDR))]) > 0:
                 HP -= 1
+                setData("hp",HP)
                 lastest_hit = time()
                 print(f"HP: {HP}/5 {result} | {boundary}")
                 if HP == 0:
@@ -38,17 +40,24 @@ def initGame(enableLDR,HP=5):
             prev = [i for i in crnt]
             #print(f"HP: {HP}/5 {result} | {boundary}")
             sleep(0.1)
-
+        
+        setData("isActive",False)
         if HP <= 0:
+            setData("isWin",-1)
             print("GAME OVER")
         else:
             diff_time = time()-start_time
+            setData("isWin",1)
+            setData("time",diff_time)
             print(f"YOU WIN (Time Used: {diff_time:.2f} seconds) You Got: {int(HP*1000/sqrt(diff_time))} Points!")
+    except:
+        pass
             #while not GPIO.input(Button):
             #    pass
             #sleep(0.2)
     #except:
     #    print("ERROR")
-    finally:
-        setLaser([0,0,0,0,0,0])
-        GPIO.cleanup()
+    #finally:
+     #   setData("isActive",False)
+      #  setLaser([0,0,0,0,0,0])
+       # GPIO.cleanup()
